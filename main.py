@@ -1,47 +1,49 @@
-from contact import contact
+from models.contact import contact
+from models.addressbook import AddressBook
+from utilities.ui import main_menue, welcome_screen
+from utilities.helper import get_input
 
-def welcome_screen():
 
-    banner = r"""
-    /$$$$$$        /$$       /$$                                              /$$$$$$$                      /$$      
-   /$$__  $$      | $$      | $$                                             | $$__  $$                    | $$      
-  | $$  \ $$  /$$$$$$$  /$$$$$$$  /$$$$$$   /$$$$$$   /$$$$$$$ /$$$$$$$      | $$  \ $$  /$$$$$$   /$$$$$$ | $$   /$$
-  | $$$$$$$$ /$$__  $$ /$$__  $$ /$$__  $$ /$$__  $$ /$$_____//$$_____/      | $$$$$$$  /$$__  $$ /$$__  $$| $$  /$$/
-  | $$__  $$| $$  | $$| $$  | $$| $$  \__/| $$$$$$$$|  $$$$$$|  $$$$$$       | $$__  $$| $$  \ $$| $$  \ $$| $$$$$$/ 
-  | $$  | $$| $$  | $$| $$  | $$| $$      | $$_____/ \____  $$\____  $$      | $$  \ $$| $$  | $$| $$  | $$| $$_  $$ 
-  | $$  | $$|  $$$$$$$|  $$$$$$$| $$      |  $$$$$$$ /$$$$$$$//$$$$$$$/      | $$$$$$$/|  $$$$$$/|  $$$$$$/| $$ \  $$
-  |__/  |__/ \_______/ \_______/|__/       \_______/|_______/|_______/       |_______/  \______/  \______/ |__/  \__/
+#initialize the addressbook
+AddressBook = AddressBook()
 
-                              ADDRESS BOOK
-    """
-    
-    
+def add_contact_flow():
+    fields = [
+        "First Name" , "Last Name" , "Phone Number" , "Email" , "Address" , "City" , 
+        "State" , "Zip Code"
+    ]
 
-    print(banner)
-    print("Welcome to Your Adddress Book System")
-    print("--------------------------------------")
+    #Collect all the data using the helper 
+    values = [get_input(field) for field in fields]
+
+    #Create contact object and add it to the book
+    # The *values unpacs the list into the 8 arguments the class needs
+
+    new_contact = contact(*values)
+    AddressBook.add_contact(new_contact)
+
 
 def main():
+    while True:
+        welcome_screen()
+        main_menue()
+        choice = input("\nSelect an option: ")
 
-    #uc1: Display Welcome Message
+        if choice == "1":
+            add_contact_flow()
+            input("\nPress Enter to return to menu..")
+        elif choice == "2":
+            AddressBook.display_contacts()
+            input("\nPress Enter to return to menu..")
+        elif choice == "3":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice , try again.")
+            input("\n Press Enter to continue...")
 
-    welcome_screen()
 
-    #uc1: create a contact instance 
 
-    contact1 = contact(
-        "John" , 
-        "Doe",
-        "9026960970",
-        "Ayush@gmail",
-        "Nidhivan Colony Mathura",
-        "Mathura",
-        "UP",
-        "28059"
-    )
-
-    #print contact
-    print(contact1)
 
 
 if __name__=="__main__":
