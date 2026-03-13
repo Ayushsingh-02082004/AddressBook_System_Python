@@ -2,7 +2,7 @@ class AddressBook:
     def __init__(self):
 
         #Encapsulation: private list to store contacts
-        self.__contacts = []
+        self.__contacts = list()
 
     def add_contact(self , contact):
         self.__contacts.append(contact)
