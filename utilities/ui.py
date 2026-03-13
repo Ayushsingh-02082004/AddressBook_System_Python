@@ -25,4 +25,5 @@ def main_menue():
     print("\n1. Add contact")
     print("2. Display contact")
     print("3. Edit Contact")
-    print("4. Exit")
+    print("4. Delete Contact")
+    print("5. Exit")

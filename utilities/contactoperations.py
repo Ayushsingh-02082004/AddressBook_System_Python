@@ -1,3 +1,34 @@
+from utilities.helper import get_input
+from models.contact import contact
+
+
+def deletecontact_flow(addressbook):
+    try:
+        firstname = input("Enter first name :")
+        lastname = input("Enter last name : ")
+
+        #call the delete methord from addressbook
+        contact_deleted  = addressbook.delete_contact(firstname , lastname)
+
+        if contact_deleted : 
+            print(f"Contact {firstname} {lastname} deleted successfully")
+        else :
+            print("Contact not found .")
+
+    except Exception as e : 
+        print(f"An error occured during deletion {e}")
+
+
+def add_contact_flow(address_book):
+    fields = ["First Name" , "Last Name" , "Phone Number" , "Email" , 
+              "Address" , "City" , "State" , "Zip Code"]
+    #Collect all the data using the helper 
+    values = [get_input(field) for field in fields]
+    #Create contact object and add it to the book
+    # The *values unpacs the list into the 8 arguments the class needs
+    new_contact = contact(*values)
+    address_book.add_contact(new_contact)
+
 
 def edit_contact(addressbook):
     try:

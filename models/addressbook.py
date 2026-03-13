@@ -14,6 +14,14 @@ class AddressBook:
             if(contact.firstname.casefold() == firstname.casefold() and contact.lastname.casefold() == lastname.casefold()):
                 return contact
         return None
+    
+    def delete_contact(self , firstname  , lastname ):
+        contact_toDelete = self.get_contact(firstname , lastname)
+
+        if contact_toDelete :
+            self.__contacts.remove(contact_toDelete)
+            return True
+        return False
 
     def display_contacts(self):
         if not self.__contacts:
