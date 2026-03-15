@@ -5,8 +5,15 @@ class AddressBook:
         self.__contacts = list()
 
     def add_contact(self , contact):
+
+        #uc7 python is equivalent of java sterem it checks that if any contact matches new contact
+        #this uses the __eq__ method we just wrote above
+        if any(existingcontact == contact for existingcontact in self.__contacts):
+            print(f"Error: contact {contact.firstname } {contact.lastname} already exists.")
+            return False
         self.__contacts.append(contact)
         print("\nContact added successfully!")
+        return True
 
     def get_contact(self , firstname , lastname):
         for contact in self.__contacts:
