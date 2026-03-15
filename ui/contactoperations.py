@@ -112,3 +112,27 @@ def search_by_location_flow(manager):
         print(f"Found {len(result)} contact in {location}")
         for person in result:
             print(person)
+
+
+def view_by_location_flow(manager):
+    #Update the maps first to ensure we have latest data uc9
+
+    manager.update_location_maps()
+
+    print("\n 1. View by City | 2. View by State")
+    choice = input("Select view type: ")
+
+    if choice == "1":
+        data = manager.get_persons_by_city()
+        label = "city"
+    else:
+        data = manager.get_persons_by_state()
+        label = "state"
+
+    if not data:
+        print("No data available.")
+
+    for location , people in data.items():
+        print(f"\n--- {label}: {location.upper()} ({len(people)} persons)---")
+        for p in people:
+            print(f"- {p.firstname} {p.lastname} ({p.phonenumber})")

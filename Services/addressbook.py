@@ -22,6 +22,9 @@ class AddressBook:
                 return contact
         return None
     
+    def get_all_contacts(self):
+        return self.__contacts
+    
     def delete_contact(self , firstname  , lastname ):
         contact_toDelete = self.get_contact(firstname , lastname)
 
