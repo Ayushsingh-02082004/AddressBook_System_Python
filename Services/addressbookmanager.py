@@ -57,3 +57,15 @@ class AdressBookManager:
             matches = book_object.get_contact_byLocation(location , searchtype)
             result.extend(matches)  #add the found matches in the master list
         return result
+    
+
+    def get_count_bylocation(self):
+        """"Returns a summary of counts for all cities and states"""
+
+        # Ensure maps are fresh
+        self.update_location_maps()
+
+        city_counts = {city: len(people) for city , people in self.__city_topersons.items()}
+        state_counts = {state: len(people) for state , people in self.__state_topersons.items()}
+
+        return city_counts , state_counts

@@ -136,3 +136,20 @@ def view_by_location_flow(manager):
         print(f"\n--- {label}: {location.upper()} ({len(people)} persons)---")
         for p in people:
             print(f"- {p.firstname} {p.lastname} ({p.phonenumber})")
+
+
+def view_location_counts_flow(manager):
+    city_counts, state_counts = manager.get_count_bylocation()
+
+    print("\n---- CONTACT COUNT BY CITY ---")
+    if not city_counts:
+        print("No data available.")
+    for city , count in city_counts.items():
+        print(f"{city.capitalize() : {count}}")
+
+    print("\n --- CONTACT COUNT BY STATE---")
+    if not state_counts:
+        print("No data available.")
+
+    for state , count in state_counts.items():
+        print(f"{state.upper()}: {count}")
