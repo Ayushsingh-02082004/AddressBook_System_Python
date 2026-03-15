@@ -21,9 +21,25 @@ def welcome_screen():
     print("Welcome to Your Adddress Book System")
     print("--------------------------------------")
 
+# def main_menue():
+#     print("\n1. Add contact")
+#     print("2. Display contact")
+#     print("3. Edit Contact")
+#     print("4. Delete Contact")
+#     print("5. Exit")
+
 def main_menue():
-    print("\n1. Add contact")
-    print("2. Display contact")
+    print("\n1.Add new Address Book")
+    print("2. Open Existing Address Book")
+    print("3. List All Address Books")
+    print("4. Exit")
+
+
+def address_book_menu():
+    """Level 2: Operations inside a SPECIFIC Address Book."""
+    welcome_screen()
+    print("1. Add Contact")
+    print("2. Display Contacts")
     print("3. Edit Contact")
     print("4. Delete Contact")
-    print("5. Exit")
+    print("5. Go Back (Main Menu)")

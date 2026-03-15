@@ -1,5 +1,29 @@
-from utilities.helper import get_input
+from ui.helper import get_input
 from models.contact import contact
+from Services.addressbook import AddressBook
+
+
+
+def create_addressbook_flow(manager):
+    name = input("Enter a unique name for the new Addressbook : ")
+    try:
+        #create a new instance of AddressBook for this name
+        manager.add_addressbook(name , AddressBook())
+        print(f"Adress Book '{name} created successfully!")
+    except ValueError as e:
+        print(e)
+
+
+def open_addressbook_flow(manager):
+    name = input("Enter the name of the Address Book to open: ")
+    try:
+        # Get the specfic book from the dictionary
+        current_book = manager.get_addressbook(name)
+        print(f"----Currently in : {name} ---")
+        return current_book
+    except KeyError as e:
+        print(e)
+        return None
 
 
 def deletecontact_flow(addressbook):
