@@ -17,3 +17,11 @@ class AdressBookManager:
     
     def list_allbooks(self):
         return list(self.__address_books.keys())
+    
+    def search_across_allbooks(self , location , searchtype):
+        result = []
+        #loop through addressbook object in dictionary 
+        for book_name , book_object in self.__address_books.items():  #book object is the addressbook object and items gives data in key pair
+            matches = book_object.get_contact_byLocation(location , searchtype)
+            result.extend(matches)  #add the found matches in the master list
+        return result

@@ -3,7 +3,7 @@ from Services.addressbookmanager import AdressBookManager # Import your manager
 from ui.menus import main_menue, welcome_screen, address_book_menu # Import both menus
 from ui.contactoperations import (
     edit_contact, deletecontact_flow, add_contact_flow, 
-    create_addressbook_flow, open_addressbook_flow
+    create_addressbook_flow, open_addressbook_flow , search_by_location_flow
 )
 #initialize the addressbook
 manager = AdressBookManager()
@@ -50,6 +50,9 @@ def main():
                 print(f"- {b}")
             input("\nPress Enter to return to menu..")
         elif choice == "4":
+            search_by_location_flow(manager)
+            input("Press Enter to return")
+        elif choice == "5":
             print("GoodBye!")
             break
 

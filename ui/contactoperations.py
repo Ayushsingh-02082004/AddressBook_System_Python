@@ -90,6 +90,25 @@ def edit_contact(addressbook):
                 print("Invalid choice.")
         
         print("Contact updated Successfully!")
-
+        
     except Exception as e:
         print(f"An error Occured: {e}")
+
+
+
+
+def search_by_location_flow(manager):
+    print(" 1.Search by city | 2. search by state")
+    choice = input("Choose search options : ")
+
+    searchtype = "city" if choice == "1" else "state"
+    location = input(f"Enter the {searchtype} name ")
+
+    result = manager.search_across_allbooks(location , searchtype)
+
+    if not result:
+        print(f"No contacts found in {location}")
+    else:
+        print(f"Found {len(result)} contact in {location}")
+        for person in result:
+            print(person)

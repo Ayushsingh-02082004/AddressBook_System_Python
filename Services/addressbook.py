@@ -39,3 +39,12 @@ class AddressBook:
         for contact in self.__contacts:
             print(contact)
             print("-" * 30)
+
+    def get_contact_byLocation(self , location , search_type):
+        #serchtype is city or state
+        #location is the name of the city or state 
+        if search_type == "city":
+            return [c for c in self.__contacts if c.city.casefold() == location.casefold()]
+        elif search_type == "state":
+            return [c for c in self.__contacts if c.state.casefold() == location.casefold()]
+        return []
