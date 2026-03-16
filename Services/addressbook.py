@@ -51,3 +51,12 @@ class AddressBook:
         elif search_type == "state":
             return [c for c in self.__contacts if c.state.casefold() == location.casefold()]
         return []
+    
+
+    def perform_sort(self , strategy):
+        if not self.__contacts:
+            print("Nothiing to sort.")
+            return
+        
+        strategy.sort(self.__contacts)
+        print("Address Book sorted successfully.")

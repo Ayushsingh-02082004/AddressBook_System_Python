@@ -1,8 +1,7 @@
 from ui.helper import get_input
 from models.contact import contact
 from Services.addressbook import AddressBook
-
-
+from Services.sorting import sortbyName
 
 def create_addressbook_flow(manager):
     name = input("Enter a unique name for the new Addressbook : ")
@@ -152,3 +151,12 @@ def view_location_counts_flow(manager):
 
     for state , count in state_counts.items():
         print(f"{state.upper()}:{count}")
+
+
+def sort_countacts_flow(address_book):
+    ##uc11
+    strategy = sortbyName()
+    address_book.perform_sort(strategy)
+
+    #show the results
+    address_book.display_contacts()
