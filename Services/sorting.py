@@ -1,12 +1,12 @@
 from abc import ABC , abstractmethod
 
-class sortingStragegy(ABC):
+class sortingStrategy(ABC):
     @abstractmethod
     def sort(self ,contact):
         pass
 
 
-class sortbyName(sortingStragegy):
+class sortbyName(sortingStrategy):
         
         def sort(self , contacts):
             contacts.sort(
@@ -15,3 +15,14 @@ class sortbyName(sortingStragegy):
                 contact.lastname.casefold(),
             )
         )
+            
+class sortbycity(sortingStrategy):
+     def sort(self , contact): contact.sort(key = lambda contact: contact.city.casefold())
+
+class sortbystate(sortingStrategy):
+     def sort(self, contact):
+          contact.sort(key = lambda contact: contact.state.casefold())
+
+class sortbyzip(sortingStrategy):
+     def sort(self , contact):
+          contact.sort(key = lambda contact: contact.zip_code.casefold())
