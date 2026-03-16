@@ -69,3 +69,21 @@ class AdressBookManager:
         state_counts = {state: len(people) for state , people in self.__state_topersons.items()}
 
         return city_counts , state_counts
+    
+    def perform_file_io(self , strategy , filename , mode):
+        """mode : 'save' or 'load' """
+
+        if mode == "save" : 
+            # pass our dictionary of books to the strategy 
+            strategy.save_data(filename , self.__address_books)
+        elif mode == "load":
+            # We pass 'self' (the manager) so the strategy can add books/contacts
+            strategy.load_data(filename, self)
+    
+
+    def clear_all_data(self):
+        self.__address_books.clear()
+        # Also clear your location maps if you use UC9
+        self.__city_topersons.clear()
+        self.__city_topersons.clear()
+        print("Memory cleared for fresh load.")

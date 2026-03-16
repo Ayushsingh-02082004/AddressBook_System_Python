@@ -2,7 +2,7 @@ from ui.helper import get_input
 from models.contact import contact
 from Services.addressbook import AddressBook
 from Services.sorting import sortbyName, sortbycity, sortbystate, sortbyzip
-
+from Services.file_io import TextFileIoStrategy
 
 def create_addressbook_flow(manager):
     name = input("Enter a unique name for the new Addressbook : ")
@@ -174,3 +174,26 @@ def sort_contacts_flow(address_book):
         address_book.display_contacts()
     else:
         print("Invalid choice. Returning to menu.")
+
+
+def fileIo_flow(manager):
+    print("\n ---FILE OPERATIONS ---")
+    print("1. Save all Address Books to File")
+    print("2. Load Address Books from File")
+    choice = input("Select an option: ")
+
+    filename = "addressbook_data.txt"
+    strategy = TextFileIoStrategy()
+
+    if choice == "1":
+        manager.perform_file_io(strategy , filename , mode = "save")
+    elif choice == "2":
+        manager.perform_file_io(strategy , filename , mode = "load")
+
+        print("\n---Loded Data Summary----")
+        manager.update_location_maps()
+        view_by_location_flow(manager)
+    else:
+        print("Invalid choice.")
+
+
