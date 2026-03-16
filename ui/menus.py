@@ -34,7 +34,8 @@ def main_menue():
     print("3. List All Address Books")
     print("4. Search by location in Address Book")
     print("5. View All by City/State")
-    print("6. view count of ")
+    print("6. view count of person in city/state ")
+    print("7. Exit")
 
 
 def address_book_menu():

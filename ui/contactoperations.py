@@ -96,7 +96,6 @@ def edit_contact(addressbook):
 
 
 
-
 def search_by_location_flow(manager):
     print(" 1.Search by city | 2. search by state")
     choice = input("Choose search options : ")
@@ -145,11 +144,11 @@ def view_location_counts_flow(manager):
     if not city_counts:
         print("No data available.")
     for city , count in city_counts.items():
-        print(f"{city.capitalize() : {count}}")
+        print(f"{city.capitalize()}:{count}")  
 
     print("\n --- CONTACT COUNT BY STATE---")
     if not state_counts:
         print("No data available.")
 
     for state , count in state_counts.items():
-        print(f"{state.upper()}: {count}")
+        print(f"{state.upper()}:{count}")
