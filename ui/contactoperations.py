@@ -1,8 +1,9 @@
 from ui.helper import get_input
+import json
 from models.contact import contact
 from Services.addressbook import AddressBook
 from Services.sorting import sortbyName, sortbycity, sortbystate, sortbyzip
-from Services.file_io import TextFileIoStrategy , CsvFileIoStrategy
+from Services.file_io import TextFileIoStrategy , CsvFileIoStrategy , JsonFileIoStrategy
 
 def create_addressbook_flow(manager):
     name = input("Enter a unique name for the new Addressbook : ")
@@ -179,21 +180,34 @@ def sort_contacts_flow(address_book):
 
 def file_io_flow(manager):
     print("\n--- FILE OPERATIONS ---")
-    print("1. Save as Text (.txt) | 2. Save as CSV (.csv)")
-    print("3. Load from Text (.txt) | 4. Load from CSV (.csv)")
+    print("1. Save (TXT) | 2. Save (CSV) | 3. Save (JSON)")
+    print("4. Load (TXT) | 5. Load (CSV) | 6. Load (JSON)")
     choice = input("Select an option: ")
+
+    # Use a flag to check if we performed a 'load' operation
+    is_load_operation = False
 
     if choice == "1":
         manager.perform_file_io(TextFileIoStrategy(), "addressbook.txt", "save")
     elif choice == "2":
         manager.perform_file_io(CsvFileIoStrategy(), "addressbook.csv", "save")
     elif choice == "3":
-        manager.perform_file_io(TextFileIoStrategy(), "addressbook.txt", "load")
-        manager.update_location_maps()
+        manager.perform_file_io(JsonFileIoStrategy(), "addressbook.json", "save")
     elif choice == "4":
+        manager.perform_file_io(TextFileIoStrategy(), "addressbook.txt", "load")
+        is_load_operation = True
+    elif choice == "5":
         manager.perform_file_io(CsvFileIoStrategy(), "addressbook.csv", "load")
-        print("\n---Loded Data Summary----")
-        manager.update_location_maps()
-        view_by_location_flow(manager)
+        is_load_operation = True
+    elif choice == "6":
+        manager.perform_file_io(JsonFileIoStrategy(), "addressbook.json", "load")
+        is_load_operation = True
     else:
         print("Invalid choice.")
+        return
+
+    # If it was a load, update everything and show the result once
+    if is_load_operation:
+        manager.update_location_maps()
+        print("\n--- Loaded Data Summary ---")
+        view_by_location_flow(manager)

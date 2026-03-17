@@ -1,0 +1,74 @@
+{
+    "collage": [
+        {
+            "firstname": "aditya sharma",
+            "lastname": "sharma",
+            "phone": "93572",
+            "email": "aditya@gamil",
+            "address": "ludhyana",
+            "city": "Ludhyana",
+            "state": "punjav",
+            "zip": "37522"
+        },
+        {
+            "firstname": "ayush",
+            "lastname": "kumar",
+            "phone": "937593832",
+            "email": "kumar",
+            "address": "varanasi",
+            "city": "varanasi",
+            "state": "up",
+            "zip": "375932"
+        },
+        {
+            "firstname": "Ayush",
+            "lastname": "singh",
+            "phone": "90394839854",
+            "email": "ayus",
+            "address": "dasaipur",
+            "city": "amethi",
+            "state": "up",
+            "zip": "228159"
+        },
+        {
+            "firstname": "Parth Arora",
+            "lastname": "Arora",
+            "phone": "927582381947",
+            "email": "parth@gmail.com",
+            "address": "himachal",
+            "city": "solan",
+            "state": "himachal",
+            "zip": "2957231"
+        },
+        {
+            "firstname": "Swiarish",
+            "lastname": "bharadwaj",
+            "phone": "927529418957",
+            "email": "swarish@gmail.com",
+            "address": "Haryana",
+            "city": "Yamuna Nagar",
+            "state": "Harayana",
+            "zip": "298475"
+        },
+        {
+            "firstname": "Shivam",
+            "lastname": "sharma",
+            "phone": "9759284189",
+            "email": "shivam@gmail.com",
+            "address": "Gorakhpur",
+            "city": "Gorakhpur",
+            "state": "UP",
+            "zip": "925897239"
+        },
+        {
+            "firstname": "Mousam",
+            "lastname": "Dhiman",
+            "phone": "91758173957",
+            "email": "mousam@gmail.com",
+            "address": "Himachal",
+            "city": "HImachal",
+            "state": "Himachal",
+            "zip": "25794"
+        }
+    ]
+}

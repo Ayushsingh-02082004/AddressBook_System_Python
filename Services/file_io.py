@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import csv
+import json 
 import os
 from models.contact import contact
 
@@ -78,7 +79,7 @@ class CsvFileIoStrategy(FileIoStrategy):
                             "addressbook_name": ab_name,
                             "firstname": c.firstname,
                             "lastname": c.lastname,
-                            "phone": c.phonenumber,
+                            "phone": c.phone,
                             "email": c.email,
                             "address": c.address,
                             "city": c.city,
@@ -117,3 +118,73 @@ class CsvFileIoStrategy(FileIoStrategy):
             print(f"Successfully loaded data from CSV: {filename}")
         except Exception as e:
             print(f"Error loading CSV: {e}")
+
+
+class JsonFileIoStrategy(FileIoStrategy):
+    def save_data(self, filename, address_books):
+        """Saves all address books into a structured JSON file"""
+        try:
+            # Prepare a master dictionary to hold all books
+            master_data = {}
+            for ab_name, book in address_books.items():
+                # Convert list of contact objects into list of dictionaries
+                master_data[ab_name] = [
+                    {
+                        "firstname": c.firstname,
+                        "lastname": c.lastname,
+                        "phone": c.phonenumber,
+                        "email": c.email,
+                        "address": c.address,
+                        "city": c.city,
+                        "state": c.state,
+                        "zip": c.zip_code
+                    } for c in book.get_all_contacts()
+                ]
+
+            with open(filename, "w", encoding="utf-8") as file:
+                # indent=4 makes the file human-readable
+                json.dump(master_data, file, indent=4)
+            print(f"Successfully saved data to JSON: {filename}")
+        except IOError as e:
+            print(f"Error saving JSON: {e}")
+
+
+    def load_data(self, filename, manager):
+        """Reads JSON and reconstructs the manager state"""
+        if not os.path.exists(filename):
+            print(f"DEBUG: JSON file {filename} not found at {os.getcwd()}")
+            return
+
+        manager.clear_all_data()
+        try:
+            with open(filename, "r", encoding="utf-8") as file:
+                master_data = json.load(file)
+                                
+                for ab_name, contact_list in master_data.items():
+                    
+                    from Services.addressbook import AddressBook
+                    # Using a try-except here because add_addressbook raises ValueError if exists
+                    try:
+                        manager.add_addressbook(ab_name, AddressBook())
+                    except ValueError:
+                        pass 
+                    
+                    for data in contact_list:
+                        # CRITICAL: Print the data to see if keys match
+                        # print(f"DEBUG: Loading contact: {data['firstname']}")
+                        
+                        new_contact = contact(
+                            data["firstname"], 
+                            data["lastname"], 
+                            data["phone"],
+                            data["email"], 
+                            data["address"], 
+                            data["city"],
+                            data["state"], 
+                            data["zip"]
+                        )
+                        manager.get_addressbook(ab_name).add_contact(new_contact)
+            
+            print(f"Successfully loaded data from JSON: {filename}")
+        except Exception as e:
+            print(f"Error loading JSON: {e}")

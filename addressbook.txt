@@ -1,2 +1,7 @@
-UP|Ayush|Singh|90269609780|ayush@gmail.com|Dasaipur Tikariya Amethi UP|Amethi|UP|228159
-UP|Singh|Ayush|ahug|ayush@gmail.com|Dasaipur|Amethi|UP|kahg
+collage|aditya sharma|sharma|93572|aditya@gamil|ludhyana|Ludhyana|punjav|37522
+collage|ayush|kumar|937593832|kumar|varanasi|varanasi|up|375932
+collage|Ayush|singh|90394839854|ayus|dasaipur|amethi|up|228159
+collage|Parth Arora|Arora|927582381947|parth@gmail.com|himachal|solan|himachal|2957231
+collage|Swiarish|bharadwaj|927529418957|swarish@gmail.com|Haryana|Yamuna Nagar|Harayana|298475
+collage|Shivam|sharma|9759284189|shivam@gmail.com|Gorakhpur|Gorakhpur|UP|925897239
+collage|Mousam|Dhiman|91758173957|mousam@gmail.com|Himachal|HImachal|Himachal|25794
