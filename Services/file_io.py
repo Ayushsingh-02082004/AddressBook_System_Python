@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import csv
 import os
 from models.contact import contact
 
@@ -54,3 +55,65 @@ class TextFileIoStrategy(FileIoStrategy):
             print(f"Successfully loaded data from {filename}")
         except Exception as e:
             print(f"An error occurred while loading: {e}")
+
+
+class CsvFileIoStrategy(FileIoStrategy):
+    def __init__(self):
+        # Define the headers (columns) for the CSV file
+        self.headers = [
+            "addressbook_name", "firstname", "lastname", 
+            "phone", "email", "address", "city", "state", "zip"
+        ]
+
+    def save_data(self, filename, address_books):
+        """Saves all address books into a single CSV file"""
+        try:
+            with open(filename, mode="w", encoding="utf-8", newline="") as file:
+                writer = csv.DictWriter(file, fieldnames=self.headers)
+                writer.writeheader() # Write the top row (headers)
+
+                for ab_name, book in address_books.items():
+                    for c in book.get_all_contacts():
+                        writer.writerow({
+                            "addressbook_name": ab_name,
+                            "firstname": c.firstname,
+                            "lastname": c.lastname,
+                            "phone": c.phonenumber,
+                            "email": c.email,
+                            "address": c.address,
+                            "city": c.city,
+                            "state": c.state,
+                            "zip": c.zip_code
+                        })
+            print(f"Successfully saved data to CSV: {filename}")
+        except IOError as e:
+            print(f"Error saving CSV: {e}")
+
+    def load_data(self, filename, manager):
+        """Reads CSV and rebuilds the objects in memory"""
+        if not os.path.exists(filename):
+            print("CSV file not found.")
+            return
+
+        manager.clear_all_data() # Ensure fresh start
+        try:
+            with open(filename, mode="r", encoding="utf-8", newline="") as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    ab_name = row["addressbook_name"]
+
+                    # Ensure the Address Book exists
+                    if ab_name not in manager.list_allbooks():
+                        from Services.addressbook import AddressBook
+                        manager.add_addressbook(ab_name, AddressBook())
+
+                    # Reconstruct the contact object
+                    new_contact = contact(
+                        row["firstname"], row["lastname"], row["phone"],
+                        row["email"], row["address"], row["city"],
+                        row["state"], row["zip"]
+                    )
+                    manager.get_addressbook(ab_name).add_contact(new_contact)
+            print(f"Successfully loaded data from CSV: {filename}")
+        except Exception as e:
+            print(f"Error loading CSV: {e}")

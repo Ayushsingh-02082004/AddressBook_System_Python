@@ -2,7 +2,7 @@ from ui.helper import get_input
 from models.contact import contact
 from Services.addressbook import AddressBook
 from Services.sorting import sortbyName, sortbycity, sortbystate, sortbyzip
-from Services.file_io import TextFileIoStrategy
+from Services.file_io import TextFileIoStrategy , CsvFileIoStrategy
 
 def create_addressbook_flow(manager):
     name = input("Enter a unique name for the new Addressbook : ")
@@ -176,24 +176,24 @@ def sort_contacts_flow(address_book):
         print("Invalid choice. Returning to menu.")
 
 
-def fileIo_flow(manager):
-    print("\n ---FILE OPERATIONS ---")
-    print("1. Save all Address Books to File")
-    print("2. Load Address Books from File")
+
+def file_io_flow(manager):
+    print("\n--- FILE OPERATIONS ---")
+    print("1. Save as Text (.txt) | 2. Save as CSV (.csv)")
+    print("3. Load from Text (.txt) | 4. Load from CSV (.csv)")
     choice = input("Select an option: ")
 
-    filename = "addressbook_data.txt"
-    strategy = TextFileIoStrategy()
-
     if choice == "1":
-        manager.perform_file_io(strategy , filename , mode = "save")
+        manager.perform_file_io(TextFileIoStrategy(), "addressbook.txt", "save")
     elif choice == "2":
-        manager.perform_file_io(strategy , filename , mode = "load")
-
+        manager.perform_file_io(CsvFileIoStrategy(), "addressbook.csv", "save")
+    elif choice == "3":
+        manager.perform_file_io(TextFileIoStrategy(), "addressbook.txt", "load")
+        manager.update_location_maps()
+    elif choice == "4":
+        manager.perform_file_io(CsvFileIoStrategy(), "addressbook.csv", "load")
         print("\n---Loded Data Summary----")
         manager.update_location_maps()
         view_by_location_flow(manager)
     else:
         print("Invalid choice.")
-
-
